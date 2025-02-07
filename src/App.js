@@ -3,12 +3,14 @@ import Headers from './components/layouts/Headers';
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
+import CheckLogin from './components/pages/CheckLogin';
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from './store/userSlice';
 import { auth } from './components/fierbase';
 import { currentUser } from './components/functions/auth';
+import UserRoute from './components/Routes/UserRoute';
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +51,10 @@ function App() {
       <Route
       path='/login'
       element={<Login/>}>
+      </Route>
+      <Route
+      path='/checklogin'
+      element={<UserRoute><CheckLogin/></UserRoute>}>
       </Route>
       </Routes>
       </BrowserRouter>

@@ -4,6 +4,7 @@ import { auth, googleAuthProvider } from "../fierbase";
 import { useSelector, useDispatch } from "react-redux";
 import { login, logout } from "../../store/userSlice";
 import { createAndUpdateUser } from "../functions/auth";
+
 const Login = () => {
   const { user } = useSelector((state) => ({ ...state }));
   console.log(user.value);
@@ -40,7 +41,7 @@ const Login = () => {
   return (
     <Container>
       <h1>{user.value}</h1>
-      <Button onClick={handleLoginByGoogle}>Login with Google</Button>
+      <Button onClick={handleLoginByGoogle}>Singnin with Google</Button>
       <hr />
       <Button onClick={() => dispatch(login())}>Login</Button>
       <Button onClick={() => dispatch(logout())}>Logout</Button>
