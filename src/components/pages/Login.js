@@ -1,25 +1,25 @@
-import React from "react";
-import { Container, Button } from "react-bootstrap";
+
+import React, { useState } from "react";
+import { Container, Button, Form } from "react-bootstrap";
 import { auth, googleAuthProvider } from "../fierbase";
 import { useSelector, useDispatch } from "react-redux";
-import { login, logout } from "../../store/userSlice";
+import { login } from "../../store/userSlice";
 import { createAndUpdateUser } from "../functions/auth";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const { user } = useSelector((state) => ({ ...state }));
-  console.log(user.value);
   const dispatch = useDispatch();
 
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleLoginByGoogle = async () => {
     auth
       .signInWithPopup(googleAuthProvider)
       .then(async (result) => {
-        // console.log('result', result)
         const { user } = result;
         const idToken = await user.getIdToken();
-
-        // console.log('user', user.email, idToken)
         createAndUpdateUser(idToken)
           .then((res) => {
             dispatch(
@@ -30,21 +30,51 @@ const Login = () => {
               })
             );
           })
-          .catch((error) => {
+          .catch(() => {
             console.log("Create and update user failed");
           });
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Login by Google failed");
       });
   };
+
   return (
-    <Container>
-      <h1>{user.value}</h1>
-      <Button onClick={handleLoginByGoogle}>Singnin with Google</Button>
+    <Container className="mt-5" style={{ maxWidth: "400px" }}>
+        <h1>{user?.user?.email || "Guest"}</h1>
+      <Form>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword" className="mt-3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+
+        <Button className="w-100 mt-3" variant="primary" type="submit">
+          Login
+        </Button>
+      </Form>
       <hr />
-      <Button onClick={() => dispatch(login())}>Login</Button>
-      <Button onClick={() => dispatch(logout())}>Logout</Button>
+      <Button className="w-100 mt-2" variant="light" onClick={handleLoginByGoogle}>
+        <FcGoogle size={20} className="me-2" /> Sign in with Google
+      </Button>
+      <hr />
+      {/* <Button className="w-100" variant="danger" onClick={() => dispatch(logout())}>
+        Logout
+      </Button> */}
     </Container>
   );
 };

@@ -36,12 +36,12 @@ const Headers = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav className="align-items-center gap-3">
-            <NavLink to="/checklogin" className="text-dark text-decoration-none fw-medium">
+            {/* <NavLink to="/checklogin" className="text-dark text-decoration-none fw-medium">
               CheckLogin
-            </NavLink>
+            </NavLink> */}
             <Navbar.Text>
               <Link to="/login" className="text-primary fw-medium">
-                Login
+                เข้าสู่ระบบ
               </Link>
             </Navbar.Text>
             <NavLink 
@@ -49,7 +49,7 @@ const Headers = () => {
               onClick={handleLogout} 
               className="text-danger fw-medium text-decoration-none"
             >
-              Logout
+              ออกจากระบบ
             </NavLink>
           </Nav>
         </Navbar.Collapse>
