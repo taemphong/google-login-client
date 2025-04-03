@@ -40,7 +40,6 @@ const Headers = () => {
               CheckLogin
             </NavLink>
             <Navbar.Text>
-              Login with Google:{" "}
               <Link to="/login" className="text-primary fw-medium">
                 Login
               </Link>
